@@ -12,7 +12,7 @@ object Main extends IOApp {
 
   override def run(args: List[String]): IO[ExitCode] = {
     (for {
-      request <- parse(args.head).flatMap(_.as[Request])
+      request <- parse(args.mkString("")).flatMap(_.as[Request])
       body = request.body.getOrElse(
         Json.obj(("error", Json.fromString("empty body")))
       )
@@ -25,7 +25,7 @@ object Main extends IOApp {
     } yield response)
       .getOrElse(
         Console[IO]
-          .print(Response.success(Json.fromString(args.head)).asJson)
+          .print(Response.success(Json.fromString(args.mkString(""))).asJson)
           .as(ExitCode.Success)
       )
   }
