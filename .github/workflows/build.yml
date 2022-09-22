@@ -23,7 +23,7 @@ jobs:
       - name: Build
         run: |
           sbt assembly
-          native-image -jar target/scala-2.13/simple-git-lfs-4s-assembly-0.1.0-SNAPSHOT.jar -H:+ReportExceptionStackTraces --no-fallback --allow-incomplete-classpath
+          native-image -jar target/scala-2.13/simple-git-lfs-4s-assembly-0.1.0-SNAPSHOT.jar -H:+ReportExceptionStackTraces --no-fallback --allow-incomplete-classpath --initialize-at-build-time=org.slf4j.LoggerFactory --initialize-at-build-time=org.slf4j.impl.StaticLoggerBinder
           
       - name: Upload binary
         uses: actions/upload-artifact@v2
