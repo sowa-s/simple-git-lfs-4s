@@ -13,8 +13,8 @@ object Main extends IOApp {
   override def run(args: List[String]): IO[ExitCode] = {
     (for {
       request <- parse(args.head).flatMap(_.as[Request])
-      body <- request.body.toRight(
-        DecodingFailure.Reason.CustomReason("Body is empty")
+      body = request.body.getOrElse(
+        Json.obj(("error", Json.fromString("empty body")))
       )
     } yield for {
       response <- Console[IO]

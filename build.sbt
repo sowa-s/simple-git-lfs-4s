@@ -15,7 +15,6 @@ lazy val root = (project in file("."))
       "org.typelevel" %% "cats-effect" % catsEffectVersion,
       "software.amazon.awssdk" % "s3" % awsSdkVersion,
       "io.circe" %% "circe-core" % circeVersion,
-      "io.circe" %% "circe-core" % circeVersion,
       "io.circe" %% "circe-generic" % circeVersion,
       "io.circe" %% "circe-parser" % circeVersion,
       "org.scalatest" %% "scalatest" % scalaTestVersion % "test",
