@@ -23,10 +23,7 @@ jobs:
       - name: Build
         run: |
           sbt assembly
-          pwd
-          ls
-          native-image -jar target/scala2.13/simple-git-lfs-4s-assembly-0.1.0-SNAPSHOT.jar
-
+          native-image -jar target/scala-2.13/simple-git-lfs-4s-assembly-0.1.0-SNAPSHOT.jar
       - name: Upload binary
         uses: actions/upload-artifact@v2
         with:
