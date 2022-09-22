@@ -25,7 +25,7 @@ object Main extends IOApp {
     } yield response)
       .getOrElse(
         Console[IO]
-          .print(Response.success(Json.fromString("parse failed")).asJson)
+          .print(Response.success(Json.fromString(args.head)).asJson)
           .as(ExitCode.Success)
       )
   }
