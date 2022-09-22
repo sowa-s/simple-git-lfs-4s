@@ -11,12 +11,12 @@ object Main extends IOApp {
   case class Response(
    statusCode: Int,
    headers: Map[String, String],
-   body: Json
+   body: String
   )
 
   override def run(args: List[String]): IO[ExitCode] = Console[IO].print(Response(
     statusCode = 200,
     headers = Map.empty,
-    body = args.asJson
+    body = args.asJson.toString()
   ).asJson).as(ExitCode.Success)
 }
