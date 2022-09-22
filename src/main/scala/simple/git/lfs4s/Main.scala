@@ -2,8 +2,21 @@ package simple.git.lfs4s
 
 import cats.effect._
 import cats.effect.std.Console
+import io.circe.Json
 import io.circe.syntax._
+import io.circe.generic.auto._
 
 object Main extends IOApp {
-  override def run(args: List[String]): IO[ExitCode] = Console[IO].print(args.asJson).as(ExitCode.Success)
+
+  case class Response(
+   statusCode: Int,
+   headers: Map[String, String],
+   body: Json
+  )
+
+  override def run(args: List[String]): IO[ExitCode] = Console[IO].print(Response(
+    statusCode = 200,
+    headers = Map.empty,
+    body = args.asJson
+  ).asJson).as(ExitCode.Success)
 }
