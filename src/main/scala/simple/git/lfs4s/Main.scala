@@ -23,6 +23,10 @@ object Main extends IOApp {
         )
         .as(ExitCode.Success)
     } yield response)
-      .getOrElse(Console[IO].print("error").as(ExitCode.Error))
+      .getOrElse(
+        Console[IO]
+          .print(Response.success(Json.fromString("parse failed")).asJson)
+          .as(ExitCode.Success)
+      )
   }
 }
