@@ -17,6 +17,6 @@ object Main extends IOApp {
   override def run(args: List[String]): IO[ExitCode] = Console[IO].print(Response(
     statusCode = 200,
     headers = Map.empty,
-    body = args.asJson.toString()
+    body = "{\"test\":1}"
   ).asJson).as(ExitCode.Success)
 }
