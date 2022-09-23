@@ -1,6 +1,7 @@
 package simple.git.lfs4s
 
 import cats.effect._
+import cats.effect.std.Console
 import io.circe.Json
 import io.circe.generic.auto._
 import io.circe.parser.parse
@@ -19,15 +20,18 @@ object Main extends IOApp {
   override def run(args: List[String]): IO[ExitCode] = {
     (for {
       request <- parse(args.mkString("")).flatMap(_.as[Request])
-      body = request.body.getOrElse(
-        Json.obj(("error", Json.fromString("empty body")))
-      )
+//      body = request.body.getOrElse(
+//        Json.obj(("error", Json.fromString("empty body")))
+//      )
+
     } yield for {
+      _ <- Console[IO].println("logging test")
       response <- postLambdaResponse(body = args.mkString("").asJson)
         .as(ExitCode.Success)
     } yield response)
       .getOrElse(
-        postLambdaResponse(body = args.mkString("").asJson)
+        postLambdaResponse(body = args.mkString("error").asJson)
+          .as(ExitCode.Success)
       )
   }
   def postLambdaResponse(body: Json): IO[Unit] = {
