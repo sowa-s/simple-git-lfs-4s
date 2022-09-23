@@ -13,9 +13,18 @@ import org.http4s.{Method, Uri}
 
 object Main extends IOApp {
 
-  val AWS_LAMBDA_RUNTIME_API = sys.env.get("AWS_LAMBDA_RUNTIME_API")
-  val INVOCATION_ID = sys.env.get("INVOCATION_ID")
-  val S3_BUCKET_NAME = sys.env.get("S3_BUCKET_NAME")
+  val AWS_LAMBDA_RUNTIME_API = sys.env.getOrElse(
+    "AWS_LAMBDA_RUNTIME_API",
+    throw new Exception("AWS_LAMBDA_RUNTIME_API is not found")
+  )
+  val INVOCATION_ID = sys.env.getOrElse(
+    "INVOCATION_ID",
+    throw new Exception("INVOCATION_ID is not found")
+  )
+  val S3_BUCKET_NAME = sys.env.getOrElse(
+    "S3_BUCKET_NAME",
+    throw new Exception("S3_BUCKET_NAME is not found")
+  )
 
   override def run(args: List[String]): IO[ExitCode] = {
     (for {
