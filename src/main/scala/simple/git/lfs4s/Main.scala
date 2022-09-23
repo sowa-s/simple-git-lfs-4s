@@ -9,7 +9,8 @@ import io.circe.syntax._
 import org.http4s.circe.CirceEntityCodec._
 import org.http4s.circe._
 import org.http4s.ember.client.EmberClientBuilder
-import org.http4s.{Method, Uri}
+import org.http4s.{Method, ParseFailure, Uri}
+import simple.git.lfs4s.model.GitLFSRequest
 
 object Main extends IOApp {
 
@@ -27,12 +28,11 @@ object Main extends IOApp {
   )
 
   override def run(args: List[String]): IO[ExitCode] = {
+    println(args.mkString(""))
+    println("-------------")
+    println(println(args.mkString("@@@")))
     (for {
       request <- parse(args.mkString("")).flatMap(_.as[Request])
-//      body = request.body.getOrElse(
-//        Json.obj(("error", Json.fromString("empty body")))
-//      )
-
     } yield for {
       _ <- Console[IO].println("logging test")
       response <- postLambdaResponse(body = args.mkString("").asJson)
