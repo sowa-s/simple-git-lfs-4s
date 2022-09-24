@@ -30,7 +30,12 @@ class S3PresignedURLIssueServiceImpl(val bucketName: String)
     val expireAt = Instant.now().plus(expireDuration)
     val presigner = S3Presigner.create()
     val putObjectRequest =
-      PutObjectRequest.builder().bucket(bucketName).key(key).build()
+      PutObjectRequest
+        .builder()
+        .bucket(bucketName)
+        .key(key)
+        .contentType("application/octet-stream")
+        .build()
     val req = PutObjectPresignRequest
       .builder()
       .putObjectRequest(putObjectRequest)
