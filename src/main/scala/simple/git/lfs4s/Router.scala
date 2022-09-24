@@ -19,7 +19,12 @@ object Router {
       .getOrElse(Left(DecodingFailure.apply("body is empty", List.empty)))
 
     (request.path, body) match {
-      case (_, Left(value)) => IO.raiseError(value)
+      case (_, Left(value))                                                =>
+        IO.raiseError(
+          new Exception(
+            value.getMessage() + "body: " + request.body.map(_.noSpaces)
+          )
+        )
       case ("/objects/batch", Right(value)) if value.operation == Upload   =>
         UploadRequestProcessor
           .execute(s3PresignedURLIssueService, value)

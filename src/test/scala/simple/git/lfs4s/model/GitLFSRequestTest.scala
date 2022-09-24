@@ -8,10 +8,22 @@ class GitLFSRequestTest extends AnyFunSuite {
     val uploadRequest =
       """
         |{
-        |"operation":"upload",
-        |"objects":[{"oid":"90ec0230f29b8681119c61d817a0147281dc6d607be1c97f4c4876feba53fbce","size":2845017}],
-        |"transfers":["basic","ssh","lfs-standalone-file"],
-        |"ref":{"name":"refs/heads/main"},"hash_algo":"sha256"
+        |    "operation": "upload",
+        |    "objects": [
+        |        {
+        |            "oid": "90ec0230f29b8681119c61d817a0147281dc6d607be1c97f4c4876feba53fbce",
+        |            "size": 2845017
+        |        }
+        |    ],
+        |    "transfers": [
+        |        "lfs-standalone-file",
+        |        "basic",
+        |        "ssh"
+        |    ],
+        |    "ref": {
+        |        "name": "refs/heads/main"
+        |    },
+        |    "hash_algo": "sha256"
         |}
         |""".stripMargin
     parse(uploadRequest).flatMap(_.as[GitLFSRequest]) match {
