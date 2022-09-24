@@ -11,7 +11,6 @@ object UploadRequestProcessor {
       service: S3PresignedURLIssueService,
       request: GitLFSRequest
   ): IO[GitLFSResponse] = {
-    logger.info("Upload")
     request.objects
       .map(o => {
         service

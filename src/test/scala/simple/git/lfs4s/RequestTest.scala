@@ -52,7 +52,7 @@ class RequestTest extends AnyFunSuite {
         |      "extendedRequestId":"aaaaaaaa",
         |      "requestTime":"22/Sep/2022:18:21:09"
         |   },
-        |   "body": {"hoge": "fuga"},
+        |   "body": "{\"hoge\": \"fuga\"}",
         |   "isBase64Encoded": false
         |}""".stripMargin
 

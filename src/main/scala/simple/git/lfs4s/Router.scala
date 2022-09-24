@@ -1,7 +1,7 @@
 package simple.git.lfs4s
 
 import cats.effect.IO
-import io.circe.DecodingFailure
+import io.circe.{DecodingFailure, Json}
 import simple.git.lfs4s.command.{
   DownloadRequestProcessor,
   UploadRequestProcessor
@@ -9,20 +9,28 @@ import simple.git.lfs4s.command.{
 import simple.git.lfs4s.model.GitLFSRequest
 import simple.git.lfs4s.model.GitLFSRequest._
 import simple.git.lfs4s.model.Operation.{Download, Upload}
+import io.circe.syntax._
+import io.circe.parser.parse
 
 object Router {
 
   def route(request: Request): IO[Response] = {
-    logger.info("Route")
-    val body = request.body
-      .map(_.as[GitLFSRequest])
-      .getOrElse(Left(DecodingFailure.apply("body is empty", List.empty)))
+    val body: Either[DecodingFailure, GitLFSRequest] = request.body
+      .toRight(DecodingFailure.apply("body is empty", List.empty))
+      .flatMap(v =>
+        parse(v).left.flatMap(e =>
+          Left(
+            DecodingFailure.apply(s"parse failure. ${e.getMessage}", List.empty)
+          )
+        )
+      )
+      .flatMap(_.as[GitLFSRequest])
 
     (request.path, body) match {
       case (_, Left(value))                                                =>
         IO.raiseError(
           new Exception(
-            value.getMessage() + "body: " + request.body.map(_.noSpaces)
+            value.getMessage() + "body: " + request.body
           )
         )
       case ("/objects/batch", Right(value)) if value.operation == Upload   =>
