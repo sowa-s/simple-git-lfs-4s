@@ -36,7 +36,7 @@ object UploadRequestProcessor {
       .sequence
       .map(objects =>
         GitLFSResponse(
-          transfer = request.transfers.headOption.getOrElse("basic"),
+          transfer = "basic",
           objects = objects,
           hashAlgo = request.hashAlgo
         )

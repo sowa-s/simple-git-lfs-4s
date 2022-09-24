@@ -36,7 +36,7 @@ object DownloadRequestProcessor {
       .sequence
       .map(objects =>
         GitLFSResponse(
-          transfer = request.transfers.headOption.getOrElse("basic"),
+          transfer = "basic",
           objects = objects,
           hashAlgo = request.hashAlgo
         )
