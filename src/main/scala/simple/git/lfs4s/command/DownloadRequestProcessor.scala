@@ -25,7 +25,7 @@ object DownloadRequestProcessor {
                 download = Some(
                   Href(
                     url.url.toString,
-                    header = Map("x-amz-acl" -> "bucket-owner-full-control")
+                    header = Map.empty
                   )
                 )
               ),

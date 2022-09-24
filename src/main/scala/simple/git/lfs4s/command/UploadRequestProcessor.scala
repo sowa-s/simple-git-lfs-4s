@@ -24,7 +24,7 @@ object UploadRequestProcessor {
                 upload = Some(
                   Href(
                     url.url.toString,
-                    header = Map("x-amz-acl" -> "bucket-owner-full-control")
+                    header = Map(("Content-Type" -> "application/octet-stream"))
                   )
                 ),
                 download = None
