@@ -36,7 +36,7 @@ object UploadRequestProcessor {
       .sequence
       .map(objects =>
         GitLFSResponse(
-          transfer = "basic",
+          transfer = "lfs-standalone-file",
           objects = objects,
           hashAlgo = request.hashAlgo
         )
