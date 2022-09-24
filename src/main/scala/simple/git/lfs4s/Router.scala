@@ -1,15 +1,14 @@
 package simple.git.lfs4s
 
 import cats.effect.IO
-import io.circe.{Decoder, DecodingFailure}
-import org.http4s.ParseFailure
+import io.circe.DecodingFailure
 import simple.git.lfs4s.command.{
   DownloadRequestProcessor,
   UploadRequestProcessor
 }
-import simple.git.lfs4s.model.{GitLFSRequest, GitLFSResponse}
+import simple.git.lfs4s.model.GitLFSRequest
+import simple.git.lfs4s.model.GitLFSRequest._
 import simple.git.lfs4s.model.Operation.{Download, Upload}
-import simple.git.lfs4s.service.S3PresignedURLIssueServiceImpl
 
 object Router {
 
