@@ -28,9 +28,12 @@ object Main extends IOApp {
   )
 
   override def run(args: List[String]): IO[ExitCode] = {
+    logger.info(args.mkString(""))
+    logger.info("=================")
+    logger.info(args.mkString("@@@"))
     println(args.mkString(""))
     println("-------------")
-    println(println(args.mkString("@@@")))
+    println(args.mkString("@@@"))
     (for {
       request <- parse(args.mkString("")).flatMap(_.as[Request])
     } yield for {
@@ -56,4 +59,5 @@ object Main extends IOApp {
       client.expect[Unit](request)
     }
   }
+
 }
