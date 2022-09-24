@@ -19,7 +19,7 @@ object UploadRequestProcessor {
             GitLFSResponseObject(
               oid = o.oid,
               size = o.size,
-              authenticated = false,
+              authenticated = true,
               actions =
                 Actions(upload = Some(Href(url.url.toString)), download = None),
               expiresAt = url.expireAt
