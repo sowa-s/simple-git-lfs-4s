@@ -20,8 +20,15 @@ object UploadRequestProcessor {
               oid = o.oid,
               size = o.size,
               authenticated = true,
-              actions =
-                Actions(upload = Some(Href(url.url.toString)), download = None),
+              actions = Actions(
+                upload = Some(
+                  Href(
+                    url.url.toString,
+                    header = Map("x-amz-acl" -> "bucket-owner-full-control")
+                  )
+                ),
+                download = None
+              ),
               expiresAt = url.expireAt
             )
           )

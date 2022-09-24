@@ -20,8 +20,15 @@ object DownloadRequestProcessor {
               oid = o.oid,
               size = o.size,
               authenticated = true,
-              actions =
-                Actions(upload = None, download = Some(Href(url.url.toString))),
+              actions = Actions(
+                upload = None,
+                download = Some(
+                  Href(
+                    url.url.toString,
+                    header = Map("x-amz-acl" -> "bucket-owner-full-control")
+                  )
+                )
+              ),
               expiresAt = url.expireAt
             )
           )
