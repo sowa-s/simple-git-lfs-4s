@@ -2,6 +2,7 @@ package simple.git.lfs4s.command
 
 import cats.effect.IO
 import cats.implicits._
+import simple.git.lfs4s.logger
 import simple.git.lfs4s.model._
 import simple.git.lfs4s.service.S3PresignedURLIssueService
 
@@ -10,7 +11,7 @@ object UploadRequestProcessor {
       service: S3PresignedURLIssueService,
       request: GitLFSRequest
   ): IO[GitLFSResponse] = {
-
+    logger.info("Upload")
     request.objects
       .map(o => {
         service

@@ -14,6 +14,7 @@ import simple.git.lfs4s.service.S3PresignedURLIssueServiceImpl
 object Router {
 
   def route(request: Request): IO[Response] = {
+    logger.info("Route")
     val body = request.body
       .map(_.as[GitLFSRequest])
       .getOrElse(Left(DecodingFailure.apply("body is empty", List.empty)))

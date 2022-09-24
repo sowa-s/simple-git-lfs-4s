@@ -13,6 +13,7 @@ import org.http4s.{Method, Uri}
 object Main extends IOApp {
 
   override def run(args: List[String]): IO[ExitCode] = {
+    logger.info("RUN")
     (for {
       request <- parse(args.mkString("")).flatMap(_.as[Request])
     } yield for {
@@ -22,7 +23,7 @@ object Main extends IOApp {
     } yield lambdaResponse)
       .getOrElse(
         postLambdaResponse(body = args.mkString("error").asJson)
-          .as(ExitCode.Error)
+          .as(ExitCode.Success)
       )
   }
   def postLambdaResponse(body: Json): IO[Unit] = {
