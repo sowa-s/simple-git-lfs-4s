@@ -17,15 +17,15 @@ object Main extends IOApp {
       request <- parse(args.mkString("")).flatMap(_.as[Request])
     } yield for {
       response <- Router.route(request)
-      lambdaResponse <- postLambdaResponse(body = response.asJson)
+      lambdaResponse <- postLambdaResponse(response = response)
         .as(ExitCode.Success)
     } yield lambdaResponse)
       .getOrElse(
-        postLambdaResponse(body = args.mkString("error").asJson)
+        postLambdaResponse(Response.success(args.mkString("error").asJson))
           .as(ExitCode.Success)
       )
   }
-  def postLambdaResponse(body: Json): IO[Unit] = {
+  def postLambdaResponse(response: Response): IO[Unit] = {
     val request = org.http4s.Request
       .apply[IO](
         Method.POST,
@@ -33,7 +33,7 @@ object Main extends IOApp {
           s"http://${AWS_LAMBDA_RUNTIME_API}/2018-06-01/runtime/invocation/$INVOCATION_ID/response"
         )
       )
-      .withEntity(Response.success(body).asJson)
+      .withEntity(response.asJson)
     EmberClientBuilder.default[IO].build.use { client =>
       client.expect[Unit](request)
     }
