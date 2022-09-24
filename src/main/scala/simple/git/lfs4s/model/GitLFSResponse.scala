@@ -29,5 +29,5 @@ case class GitLFSResponse(
 ) {
   implicit val jsonConfig: Configuration =
     Configuration.default.withSnakeCaseMemberNames
-  def toJson: Json = this.asJson
+  def toJson: Json = this.asJson.deepDropNullValues
 }
