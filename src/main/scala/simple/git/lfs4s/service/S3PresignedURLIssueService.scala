@@ -34,7 +34,7 @@ class S3PresignedURLIssueServiceImpl(val bucketName: String)
         .builder()
         .bucket(bucketName)
         .key(key)
-        .contentType("application/octet-stream")
+//        .contentType("application/octet-stream")
         .build()
     val req = PutObjectPresignRequest
       .builder()
