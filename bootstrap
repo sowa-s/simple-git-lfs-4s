@@ -9,7 +9,7 @@ do
     HEADERS="$(mktemp)"
     EVENT_DATA=$(curl -v -sS -LD "$HEADERS" -X GET "http://${AWS_LAMBDA_RUNTIME_API}/2018-06-01/runtime/invocation/next")
     export INVOCATION_ID=$(grep -Fi Lambda-Runtime-Aws-Request-Id "$HEADERS" | tr -d '[:space:]' | cut -d: -f2)
-    export S3_BUCKET_NAME=hoge
+    export S3_BUCKET_NAME=lfs-test-bucket-a
     
     # Execute the handler function from the script
     RESPONSE=$(./simple-git-lfs-4s-assembly-0.1.0-SNAPSHOT $EVENT_DATA)
