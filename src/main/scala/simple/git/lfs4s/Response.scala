@@ -9,5 +9,9 @@ case class Response(
     body: String
 )
 object Response {
-  def success(body: Json): Response = Response(200, Map.empty, body.noSpaces)
+  def success(body: Json): Response = Response(
+    200,
+    Map(("Content-Type" -> "application/vnd.git-lfs+json")),
+    body.noSpaces
+  )
 }
