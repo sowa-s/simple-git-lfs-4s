@@ -23,6 +23,6 @@ class GitLFSResponseTest extends AnyFunSuite {
       hashAlgo = "sha256"
     )
     response.toJson.noSpaces shouldBe
-      """{"transfer":"basic","objects":[{"oid":"hoge","size":1,"authenticated":true,"actions":{"upload":{"url":"https://example.com"},"download":null},"expires_at":"1970-01-01T00:00:20Z"}],"hash_algo":"sha256"}""".stripMargin.stripMargin
+      """{"transfer":"basic","objects":[{"oid":"hoge","size":1,"authenticated":true,"actions":{"upload":{"href":"https://example.com"},"download":null},"expires_at":"1970-01-01T00:00:20Z"}],"hash_algo":"sha256"}""".stripMargin.stripMargin
   }
 }
