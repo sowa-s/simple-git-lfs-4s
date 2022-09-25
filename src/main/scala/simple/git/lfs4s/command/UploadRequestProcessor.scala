@@ -24,7 +24,7 @@ object UploadRequestProcessor {
                 upload = Some(
                   Href(
                     url.url.toString,
-                    header = Map.empty
+                    header = Map(("Content-Type" -> "application/octet-stream"))
                   )
                 ),
                 download = None
