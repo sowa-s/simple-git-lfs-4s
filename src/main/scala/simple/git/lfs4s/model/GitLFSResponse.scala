@@ -7,7 +7,7 @@ import io.circe.generic.extras.auto._
 
 import java.time.Instant
 
-case class Href(url: String, header: Map[String, String])
+case class Href(href: String, header: Map[String, String])
 
 case class Actions(
     upload: Option[Href],
