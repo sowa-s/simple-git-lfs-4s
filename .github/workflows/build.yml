@@ -1,7 +1,7 @@
 on:
   push:
-    branches-ignore:
-      - master
+    branches:
+      - main
 
 name: Build Native Image For Linux
 
